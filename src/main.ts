@@ -1,6 +1,7 @@
-import "./style.css";
+import { connectToServer } from './socket-client'
+import './style.css'
 
-document.querySelector<HTMLDivElement>("#app")!.innerHTML = `
+document.querySelector<HTMLDivElement>('#app')!.innerHTML = `
   <div>
     <h2>Websocket - Client</h2>
     <input id="jwt-token" placeholder="Json Web Token" />
@@ -18,4 +19,13 @@ document.querySelector<HTMLDivElement>("#app")!.innerHTML = `
     <h3>Messages</h3>
     <ul id="messages-ul"></ul>
   </div>
-`;
+`
+
+const jwtToken = document.querySelector<HTMLInputElement>('#jwt-token')!
+const btnConnect = document.querySelector('#btn-connect')!
+
+btnConnect.addEventListener('click', () => {
+  if (jwtToken.value.trim().length <= 0) return
+
+  connectToServer(jwtToken.value)
+})
